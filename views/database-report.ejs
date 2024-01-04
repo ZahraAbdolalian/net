@@ -1,26 +1,35 @@
+<!-- database-report.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Database Report</title>
-  <link rel="stylesheet" href="/public/styles/style.scss">
-  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/react-table@7/dist/react-table.min.js"></script>
+  <link rel="stylesheet" href="../public/styles/styles.scss">
 </head>
 <body>
   <h1>Database Report</h1>
-  <div id="app"></div>
+  
+  <% if (userData && userData.length > 0) { %>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+      <% userData.forEach(user => { %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+        </tr>
+      <% }); %>
+    </table>
+  <% } else { %>
+    <p>No data available.</p>
+  <% } %>
 
-  <script>
-    const data = [
-      { id: 1, name: 'John Doe', email: 'johndoe@example.com' },
-      { id: 2, name: 'Jane Doe', email: 'janedoe@example.com' },
-      { id: 3, name: 'Peter Jones', email: 'peterjones@example.com' },
-    ];
-
-    ReactDOM.render(<ReactTable data={data} />, document.getElementById('app'));
-  </script>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react-table@7/dist/react-table.min.js"></script>
 </body>
 </html>

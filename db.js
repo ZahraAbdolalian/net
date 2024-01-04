@@ -1,23 +1,23 @@
-// db.js
 const { MongoClient } = require('mongodb');
 
 // Replace '<your-connection-string>' with your actual MongoDB Atlas connection string
-const uri = 'mongodb+srv://abdolalianzahra:sEq9FEwLRjSGkUpk@cluster0.mjggwah.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://abdolalian:D0LJbA6GDoref5jj@cluster0.mjggwah.mongodb.net/?retryWrites=true&w=majority';
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-async function connectToDatabase() {
+async function connectToMongoDB() {
   try {
     await client.connect();
     console.log('Connected to MongoDB');
+    return client.db('p2'); // Replace 'your-database-name' with your actual database name
   } catch (error) {
-    console.error('MongoDB connection error:', error.message);
+    console.error('Error connecting to MongoDB:', error);
+    throw error;
   }
 }
 
-connectToDatabase();
+function closeMongoDBConnection() {
+  client.close();
+  console.log('MongoDB connection closed');
+}
 
-module.exports = client;
+module.exports = { connectToMongoDB, closeMongoDBConnection };
